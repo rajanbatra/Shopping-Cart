@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Brand</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+   <ul class="nav navbar-nav navbar-right">
+   <li><a href="/shopping-cart/"><i class="fas fa-shopping-cart"></i> Shopping Cart          <span class="badge badge-primary">{{session.cart.totalQty}}</span></a><li>
+   <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-user"></i>  User Management <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      {{# if login}}
+    <li><a href="/user/profile">User Account</a></li>
+    <li role="seperator" class="divider"></li>
+    <li><a href="/user/logout">Logout</a></li>
+      {{ else }}
+        <li><a href="/user/signup">Sign Up</a></li>
+        <li><a href="/user/signin">Sign In</a></li>
+      {{/if}}
+    </ul>
+    </li>
+    </ul>
+    </div>
+    
+    </form>
+  </div>
+</nav>
+<script>
+var hoursLabel = document.getElementById("hours");  
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+setInterval(setTime, 1000);
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+  hoursLabel.innerHTML = pad(parseInt(totalSeconds / 3600));
+}
+
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
+</script>
